@@ -1,1 +1,1 @@
-# goodid-dotnet-sdk-demo
+This repository contains a demo for the open source GoodID .NET SDK project.

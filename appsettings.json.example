@@ -1,0 +1,25 @@
+﻿{
+  "Kestrel": {
+    "EndPoints": {
+      "Http": {
+        "Url": "http://127.0.0.1:5001/"
+      }
+    }
+  },
+
+  "Logging": {
+    "IncludeScopes": false,
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+
+  "GoodId": {
+    "ClientId": "YOUR GOODID CLIENT ID",
+    "ClientSecret": "YOUR GOODID SECRET",
+    "RedirectUri": "YOUR LOGIN ENDPOINT",
+    "SigPrivKeyPem": "YOUR PRIVATE SIGNING RSA KEY IN PEM FORMAT",
+    "EncPrivKeyPem": "YOUR PRIVATE ENCRYPTION RSA KEY IN PEM FORMAT",
+    "DefaultClaims": "{\n \"id_token\": {\n \"acr\": {\n \"value\": 1\n }\n },\n \"userinfo\": {\n \"name\": {\n \"essential\": true\n },\n \"family_name\": {\n \"essential\": true\n },\n \"given_name\": {\n \"essential\": true\n },\n \"email\": {\n \"essential\": true\n },\n \"email_verified\": {\n \"value\": true\n },\n \"phone_number\": {\n \"essential\": true\n },\n \"phone_number_parts.country_code\": {\n \"essential\": true\n },\n \"phone_number_parts.number\": {\n \"essential\": true\n },\n \"billto.type\": {\n \"essential\": true\n },\n \"billto.company_name\": {\n \"essential\": true,\n \"conditional\": {\n \"var\": \"$business\"\n }\n },\n \"billto.tax_id\": {\n \"essential\": true,\n \"conditional\": {\n \"var\": \"$business\"\n }\n },\n \"billto.address.postal_code\": {\n \"essential\": true\n },\n \"billto.address.locality\": {\n \"essential\": true\n },\n \"billto.address.street_address\": {\n \"essential\": true\n },\n \"address.postal_code\": {\n \"essential\": true\n },\n \"address.locality\": {\n \"essential\": true\n },\n \"address.street_address\": {\n \"essential\": true\n }\n },\n \"rules\": {\n \"$business\": {\n \"==\": [\n {\n \"var\": \"billto.type\"\n },\n \"business\"\n ]\n }\n }\n }"
+  }
+}

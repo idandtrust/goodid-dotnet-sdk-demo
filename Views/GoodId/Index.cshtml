@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<div id="goodid-login-container" class="blank">
+    <form asp-action="SaveData"  method="post">
+        <div id="buttons" style="text-align: center;">
+
+            @if (ViewData["Error"] != null)
+            {
+                <div class="alert alert-danger">@ViewData["Error"]</div>
+            }
+
+            <h2>GoodID authentication</h2>
+            <p><strong>client_id: </strong>@ViewData["ClientId"]</p>
+            <p><label for="claims">Claims:</label></p>
+            <p>
+                <textarea class="a" name="claims" id="claims" data-id="claims" cols="40" rows="15">@ViewData["SelectedClaims"]</textarea>
+            </p>
+            <p>
+                ACR: <select name="acr" id="acr" data-id="acr">
+                    @{
+                        var defaultWasPrinted = false;
+                        @foreach (int acrVal in Enum.GetValues(typeof(GoodId.Core.Helpers.Acr)))
+                        {
+                            string acrName = Enum.GetName(typeof(GoodId.Core.Helpers.Acr), acrVal);
+                            if (defaultWasPrinted == false && GoodId.Core.Helpers.Acr.LEVEL_DEFAULT.CompareTo((GoodId.Core.Helpers.Acr)acrVal) == 0)
+                            {
+                                acrName = "Default";
+                                defaultWasPrinted = true;
+                            }
+                            if (acrVal == ((int)(ViewData["SelectedAcr"] ?? GoodId.Core.Helpers.Acr.LEVEL_DEFAULT)))
+                            {
+                                <option selected="selected" value="@acrVal">@acrName</option>
+                            }
+                            else
+                            {
+                                <option value="@acrVal">@acrName</option>
+                            }
+
+                        }
+                    }
+                </select>
+            </p>
+            <p><button id="save-claims">Save</button></p>
+
+            <div class="goodid-login-button" data-width="small" data-lang="en_US" data-endpoint="GoodId/LoginInit"></div>
+
+            @if (ViewData["Response"] != null)
+            {
+                <pre class="text-left">
+                   @ViewData["Response"]
+                </pre>            }
+            else
+            {
+                <p>You are not logged in.</p>
+            }
+        </div>
+    </form>
+ </div>
+
+
+    <script>
+        // Load GoodID JS SDK
+        (function (d, t, i) {
+            var s, b;
+            if (d.getElementById(i)) { return; }
+            s = d.createElement(t); s.id = i;
+            s.src = '//connect.goodid.net/v1.1/connect.min.js'
+            b = d.getElementsByTagName(t)[0]; b.parentNode.insertBefore(s, b);
+        })(document, 'script', 'goodid-sdk');
+    </script>
